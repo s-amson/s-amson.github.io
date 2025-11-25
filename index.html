@@ -1,418 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Special Day for Belinda Maya</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Special Day for Belinda Maya</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&family=Great+Vibes&display=swap"
-    rel="stylesheet"
-  />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&family=Great+Vibes&display=swap"
+        rel="stylesheet"
+    />
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      /* Animated background for password page */
-      background-color: #111;
-    }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #111; /* Dark background */
+        }
 
-    h1, h2, h3, .font-script {
-      font-family: 'Great Vibes', cursive;
-    }
-    .font-heading {
-      font-family: 'Playfair Display', serif;
-    }
+        h1, h2, h3, .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
 
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: flex;
-      animation: girlyFadeIn 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
+        .page {
+            display: none;
+            min-height: 100vh; /* Ensure full viewport height */
+        }
+        .page.active {
+            display: flex;
+            animation: girlyFadeIn 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
 
-    @keyframes girlyFadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.9) translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
+        @keyframes girlyFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
-    /* --- Password Page Styles --- */
-    #page-password {
-      background: linear-gradient(-45deg, #1f1f1f, #27272a, #f9a8d4, #1f1f1f);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-    }
+        /* --- New Loading Page Styles --- */
+        #page-loading {
+            background-color: #1f1f1f; /* Dark background */
+            color: #f9a8d4; /* Pink text */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        .loader {
+            border: 8px solid rgba(249, 168, 212, 0.2); /* Light pink transparent */
+            border-top: 8px solid #f9a8d4; /* Pink */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 20px;
+        }
 
-    .glowing-box {
-      background: rgba(31, 31, 31, 0.8);
-      border: 1px solid rgba(249, 168, 212, 0.3);
-      backdrop-filter: blur(10px);
-      border-radius: 1.5rem;
-      box-shadow: 0 0 15px rgba(249, 168, 212, 0.2), 
-                  0 0 30px rgba(249, 168, 212, 0.1), 
-                  inset 0 0 10px rgba(249, 168, 212, 0.1);
-      animation: glowPulse 5s infinite alternate;
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* --- End New Loading Page Styles --- */
 
-    @keyframes glowPulse {
-      from { box-shadow: 0 0 15px rgba(249, 168, 212, 0.2), 0 0 30px rgba(249, 168, 212, 0.1), inset 0 0 10px rgba(249, 168, 212, 0.1); }
-      to { box-shadow: 0 0 30px rgba(249, 168, 212, 0.5), 0 0 60px rgba(249, 168, 212, 0.2), inset 0 0 20px rgba(249, 168, 212, 0.2); }
-    }
+        /* Existing styles for hearts, buttons, gallery images, etc. remain here */
+        #heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
 
-    #error-message {
-      display: none; /* Hidden by default */
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fecdd3; /* Light pink */
-      color: #831843; /* Dark pink */
-      border: 2px solid #f9a8d4;
-      z-index: 100;
-    }
-    /* --- End Password Page Styles --- */
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #f9a8d4;
+            opacity: 0.7;
+            animation: floatUp 10s linear infinite;
+        }
 
-    #heart-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: -1;
-    }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
 
-    .heart {
-      position: absolute;
-      font-size: 2rem;
-      color: #f9a8d4;
-      opacity: 0.7;
-      animation: floatUp 10s linear infinite;
-    }
+        .sequential-button {
+            @apply mt-10 px-8 py-4 bg-pink-500 text-white text-xl font-bold rounded-full shadow-lg shadow-pink-500/40
+            hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300;
+        }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      10%, 90% {
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
-    }
+        .gallery-image-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 125%; /* Taller aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
 
-    .sequential-button {
-      @apply mt-10 px-8 py-4 bg-pink-500 text-white text-xl font-bold rounded-full shadow-lg shadow-pink-500/40 
-      hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 border-2 border-pink-300;
-    }
+        .gallery-image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+        }
 
-    .gallery-image-container {
-      position: relative;
-      width: 100%;
-      padding-bottom: 125%; /* Taller aspect ratio */
-      height: 0;
-      overflow: hidden;
-    }
+        .gallery-image-container img.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-    .gallery-image-container img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0;
-      transform: scale(0.9);
-      transition: all 1s ease;
-    }
+        #mute-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            background-color: #f9a8d4;
+            color: #1f1f1f;
+            font-weight: bold;
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 10px rgba(249, 168, 212, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .gallery-image-container img.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    #mute-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 50;
-      background-color: #f9a8d4;
-      color: #1f1f1f;
-      font-weight: bold;
-      padding: 0.6rem 1rem;
-      border-radius: 9999px;
-      box-shadow: 0 4px 10px rgba(249, 168, 212, 0.4);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #mute-btn:hover {
-      background-color: #f472b6;
-      transform: scale(1.05);
-    }
-  </style>
+        #mute-btn:hover {
+            background-color: #f472b6;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body class="bg-zinc-900 text-pink-200 min-h-screen">
-  <audio id="bg-music" autoplay loop>
-    <source src="music.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
+    <audio id="bg-music" autoplay loop>
+        <source src="music.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+    </audio>
 
-  <button id="mute-btn">Mute Music</button>
+    <button id="mute-btn">Mute Music</button>
 
-  <div id="heart-container"></div>
+    <div id="heart-container"></div>
 
-  <div id="error-message" class="rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-    <button onclick="closeError()" class="absolute top-2 right-3 text-2xl text-pink-800">&times;</button>
-    <p class="font-bold text-lg">Incorrect password mothwak, alternatively you can come back on your birthday it will be open 🙂‍↔️</p>
-  </div>
+    <div id="error-message" class="rounded-lg shadow-lg p-6 max-w-sm w-full text-center" style="display: none;">
+        <button onclick="closeError()" class="absolute top-2 right-3 text-2xl text-pink-800">&times;</button>
+        <p class="font-bold text-lg">Incorrect password mothwak, alternatively you can come back on your birthday it will be open 🙂‍↔️</p>
+    </div>
 
-  <main class="max-w-5xl mx-auto p-4 md:p-8">
+    <main class="max-w-5xl mx-auto p-4 md:p-8">
 
-    <div id="page-password" class="page active text-center min-h-screen flex-col justify-center items-center">
-      <div class="glowing-box p-8 md:p-16 transform transition-all duration-500 max-w-2xl w-full">
-        <h1 class="text-6xl md:text-8xl text-pink-400 mb-8">Birthday Countdown</h1>
+        <div id="page-loading" class="page active text-center">
+            <div class="loader"></div>
+            <h1 class="text-4xl md:text-5xl font-script font-bold">
+                special website for a special person
+            </h1>
+        </div>
+        <div id="page-home" class="page text-center flex-col justify-center items-center">
+            <div class="bg-zinc-800 rounded-2xl shadow-xl shadow-black/30 p-8 md:p-16 transform transition-all duration-500 hover:scale-[1.02] max-w-2xl w-full">
+                <h1 class="text-6xl md:text-8xl text-pink-400 mb-8">Happy Birthday Belinda!</h1>
 
-        <h3 class="font-heading text-2xl text-pink-100">Countdown to your special moment:</h3>
-        <div id="countdown" class="grid grid-cols-4 gap-2 my-6 text-white max-w-lg mx-auto">
-          <div><span id="days" class="text-4xl md:text-5xl font-heading">00</span><span class="block text-sm text-pink-300">Days</span></div>
-          <div><span id="hours" class="text-4xl md:text-5xl font-heading">00</span><span class="block text-sm text-pink-300">Hours</span></div>
-          <div><span id="minutes" class="text-4xl md:text-5xl font-heading">00</span><span class="block text-sm text-pink-300">Minutes</span></div>
-          <div><span id="seconds" class="text-4xl md:text-5xl font-heading">00</span><span class="block text-sm text-pink-300">Seconds</span></div>
+                <button onclick="showPage('letter')" class="sequential-button">
+                    Open The Letter From My Heart
+                </button>
+            </div>
         </div>
 
-        <p class="text-xl text-pink-100 mt-8 mb-4">Please enter the password:</p>
-        <input id="password-input" type="password" class="w-full max-w-xs px-4 py-3 bg-zinc-700 text-white rounded-full text-center text-lg border-2 border-pink-400 focus:border-pink-300 focus:ring-2 focus:ring-pink-300 outline-none shadow-inner" placeholder="********">
-        <button onclick="checkPassword()" class="mt-6 px-8 py-3 bg-pink-500 text-white text-lg font-bold rounded-full shadow-lg shadow-pink-500/40 hover:bg-pink-600 transition-all duration-300 transform hover:scale-105">
-          Unlock
-        </button>
-      </div>
-    </div>
-
-    <div id="page-home" class="page text-center min-h-screen flex-col justify-center items-center">
-      <div class="bg-zinc-800 rounded-2xl shadow-xl shadow-black/30 p-8 md:p-16 transform transition-all duration-500 hover:scale-[1.02] max-w-2xl w-full">
-        <h1 class="text-6xl md:text-8xl text-pink-400 mb-8">Happy Birthday Belinda!</h1>
-
-        <button onclick="showPage('letter')" class="sequential-button">
-          Open The Letter From My Heart
-        </button>
-      </div>
-    </div>
-
-    <div id="page-letter" class="page text-center min-h-screen flex-col justify-center items-center">
-      <div class="bg-zinc-800 rounded-xl shadow-2xl shadow-black/30 max-w-3xl mx-auto p-8 md:p-12 w-full">
-        <h2 class="text-6xl text-center text-pink-400 mb-10 font-script">The Letter From My Heart To Yours</h2>
-        <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">My Dearest Belinda,</p>
-        <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
-          Happy 20th birthday! Even though we haven't met in person yet, my heart feels a connection to you that inspired me to create this special gift.
-        </p>
-        <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
-          Turning twenty is such a milestone, and you deserve to feel like the most special person in the world.
-        </p>
-        <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
-          I cherish every moment we share, even across the distance. You bring so much light into my life.
-        </p>
-        <h3 class="text-5xl text-right text-pink-400 mt-12 font-script">
-          Forever and always,<br />
-          Dimakatso
-        </h3>
-        <button onclick="showPage('gallery')" class="sequential-button">
-          View Your Special Gallery
-        </button>
-      </div>
-    </div>
-
-    <div id="page-gallery" class="page text-center min-h-screen flex-col justify-center items-center">
-      <div class="bg-zinc-800 rounded-xl shadow-2xl shadow-black/30 max-w-4xl mx-auto p-8 md:p-12 w-full">
-        <h2 class="text-6xl text-center text-pink-400 mb-10 font-script">A Gallery Just For You</h2>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          
-          <div class="lg:col-span-3 flex flex-col items-center">
-            <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
-              <img src="pic1.jpg" alt="Belinda's Picture 1"
-                   onerror="this.src='https://placehold.co/900x1600/27272a/f9a8d4?text=Your+Beautiful+Smile';">
+        <div id="page-letter" class="page text-center flex-col justify-center items-center">
+            <div class="bg-zinc-800 rounded-xl shadow-2xl shadow-black/30 max-w-3xl mx-auto p-8 md:p-12 w-full">
+                <h2 class="text-6xl text-center text-pink-400 mb-10 font-script">The Letter From My Heart To Yours</h2>
+                <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">My Dearest Belinda,</p>
+                <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
+                    Happy 20th birthday! Even though we haven't met in person yet, my heart feels a connection to you that inspired me to create this special gift.
+                </p>
+                <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
+                    Turning twenty is such a milestone, and you deserve to feel like the most special person in the world.
+                </p>
+                <p class="text-xl text-pink-200 leading-relaxed mb-6 text-left">
+                    I cherish every moment we share, even across the distance. You bring so much light into my life.
+                </p>
+                <h3 class="text-5xl text-right text-pink-400 mt-12 font-script">
+                    Forever and always,<br />
+                    Dimakatso
+                </h3>
+                <button onclick="showPage('gallery')" class="sequential-button">
+                    View Your Special Gallery
+                </button>
             </div>
-            <p class="text-lg text-pink-200 mt-2">Belinda, your beauty captivates me. Every time I see you, my heart skips a beat.</p>
-          </div>
-          
-          <div class="lg:col-span-2 flex flex-col items-center">
-            <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
-              <img src="pic2.jpg" alt="Belinda's Picture 2"
-                   onerror="this.src='https://placehold.co/900x1600/27272a/c084fc?text=My+Lucky+Star';">
-            </div>
-            <p class="text-lg text-pink-200 mt-2">I feel incredibly lucky to have you in my life. You're my guiding star.</p>
-          </div>
-          
-          <div class="lg:col-span-2 flex flex-col items-center">
-            <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
-              <img src="pic3.jpg" alt="Belinda's Picture 3"
-                   onerror="this.src='https://placehold.co/900x1600/27272a/f472b6?text=Your+Kind+Heart';">
-            </div>
-            <p class="text-lg text-pink-200 mt-2">Your kindness shines so brightly, touching everyone around you.</p>
-          </div>
-          
-          <div class="lg:col-span-3 flex flex-col items-center">
-            <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
-              <img src="pic4.jpg" alt="Belinda's Picture 4"
-                   onerror="this.src='https://placehold.co/900x1600/27272a/f9a8d4?text=My+Unique+Love';">
-            </div>
-            <p class="text-lg text-pink-200 mt-2">You are wonderfully unique and special, Belinda.</p>
-          </div>
         </div>
-        
-        <p class="text-xl text-pink-200 leading-relaxed mt-10">
-          I hope this little journey made you feel loved and cherished.
-        </p>
-        <h3 class="text-5xl text-right text-pink-400 mt-12 font-script">
-          Kind regards,<br />
-          Dimakatso
-        </h3>
-        <button onclick="showPage('home')" class="sequential-button">Back to Home</button>
-      </div>
-    </div>
-  </main>
 
-  <script>
-    let currentPage = 'password'; // Start on the password page
-    let isUnlocked = false;
-    let countdownInterval;
-    const music = document.getElementById('bg-music');
-    const muteBtn = document.getElementById('mute-btn');
+        <div id="page-gallery" class="page text-center flex-col justify-center items-center">
+            <div class="bg-zinc-800 rounded-xl shadow-2xl shadow-black/30 max-w-4xl mx-auto p-8 md:p-12 w-full">
+                <h2 class="text-6xl text-center text-pink-400 mb-10 font-script">A Gallery Just For You</h2>
 
-    muteBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        muteBtn.innerText = "Mute Music";
-      } else {
-        music.pause();
-        muteBtn.innerText = "Play Music";
-      }
-    });
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
 
-    function showPage(pageId) {
-      document.getElementById("page-" + currentPage)?.classList.remove('active');
-      document.getElementById("page-" + pageId)?.classList.add('active');
-      currentPage = pageId;
-      window.scrollTo(0, 0);
-    }
+                    <div class="lg:col-span-3 flex flex-col items-center">
+                        <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
+                            <img src="pic1.jpg" alt="Belinda's Picture 1"
+                                 onerror="this.src='https://placehold.co/900x1600/27272a/f9a8d4?text=Your+Beautiful+Smile';">
+                        </div>
+                        <p class="text-lg text-pink-200 mt-2">Belinda, your beauty captivates me. Every time I see you, my heart skips a beat.</p>
+                    </div>
 
-    // --- New Password & Unlock Logic ---
-    function unlockSite() {
-      if (isUnlocked) return; // Don't run twice
-      isUnlocked = true;
-      
-      // Hide password page, show home page
-      document.getElementById('page-password').classList.remove('active');
-      document.getElementById('page-home').classList.add('active');
-      currentPage = 'home';
-      
-      // Stop the password page background
-      document.getElementById('page-password').style.animation = 'none';
-      // Change body to normal site background
-      document.body.style.background = '#1f1f1f'; // Dark zinc
-    }
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
+                            <img src="pic2.jpg" alt="Belinda's Picture 2"
+                                 onerror="this.src='https://placehold.co/900x1600/27272a/c084fc?text=My+Lucky+Star';">
+                        </div>
+                        <p class="text-lg text-pink-200 mt-2">I feel incredibly lucky to have you in my life. You're my guiding star.</p>
+                    </div>
 
-    function checkPassword() {
-      const passwordInput = document.getElementById('password-input');
-      if (passwordInput.value === 'Dimakatso7%') {
-        unlockSite();
-      } else {
-        document.getElementById('error-message').style.display = 'flex';
-        passwordInput.value = ''; // Clear wrong password
-      }
-    }
+                    <div class="lg:col-span-2 flex flex-col items-center">
+                        <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
+                            <img src="pic3.jpg" alt="Belinda's Picture 3"
+                                 onerror="this.src='https://placehold.co/900x1600/27272a/f472b6?text=Your+Kind+Heart';">
+                        </div>
+                        <p class="text-lg text-pink-200 mt-2">Your kindness shines so brightly, touching everyone around you.</p>
+                    </div>
 
-    function closeError() {
-      document.getElementById('error-message').style.display = 'none';
-    }
+                    <div class="lg:col-span-3 flex flex-col items-center">
+                        <div class="gallery-image-container mb-4 rounded-lg shadow-lg shadow-pink-500/20 w-full">
+                            <img src="pic4.jpg" alt="Belinda's Picture 4"
+                                 onerror="this.src='https://placehold.co/900x1600/27272a/f9a8d4?text=My+Unique+Love';">
+                        </div>
+                        <p class="text-lg text-pink-200 mt-2">You are wonderfully unique and special, Belinda.</p>
+                    </div>
+                </div>
 
-    // --- Floating hearts ---
-    const heartContainer = document.getElementById('heart-container');
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerHTML = '&#10084;';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-      heart.style.opacity = Math.random() * 0.5 + 0.3;
-      heartContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-    setInterval(createHeart, 800);
+                <p class="text-xl text-pink-200 leading-relaxed mt-10">
+                    I hope this little journey made you feel loved and cherished.
+                </p>
+                <h3 class="text-5xl text-right text-pink-400 mt-12 font-script">
+                    Kind regards,<br />
+                    Dimakatso
+                </h3>
+                <button onclick="showPage('home')" class="sequential-button">Back to Home</button>
+            </div>
+        </div>
+    </main>
 
-    // --- Countdown ---
-    function startCountdown() {
-      // SET YOUR TARGET BIRTHDAY DATE HERE
-      const countDownDate = new Date("Nov 25, 2025 00:00:00").getTime();
+    <script>
+        let currentPage = 'loading'; // Start on the loading page
+        const music = document.getElementById('bg-music');
+        const muteBtn = document.getElementById('mute-btn');
 
-      countdownInterval = setInterval(function () {
-        const now = new Date().getTime();
-        const distance = countDownDate - now;
+        muteBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                muteBtn.innerText = "Mute Music";
+            } else {
+                music.pause();
+                muteBtn.innerText = "Play Music";
+            }
+        });
 
-        // If countdown is over
-        if (distance < 0) {
-          clearInterval(countdownInterval);
-          unlockSite(); // Automatically unlock the site
-          // Hide countdown elements just in case
-          document.getElementById("days").innerHTML = "00";
-          document.getElementById("hours").innerHTML = "00";
-          document.getElementById("minutes").innerHTML = "00";
-          document.getElementById("seconds").innerHTML = "00";
-          return;
+        function showPage(pageId) {
+            document.getElementById("page-" + currentPage)?.classList.remove('active');
+            document.getElementById("page-" + pageId)?.classList.add('active');
+            currentPage = pageId;
+            window.scrollTo(0, 0);
         }
 
-        // Update timer
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-        document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-        document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-        document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
-      }, 1000);
-    }
-    
-    // Start the countdown when the page loads
-    startCountdown();
+        // --- Loading Page Auto-Redirect ---
+        // Redirect from the new loading page to the home page after 5 seconds
+        setTimeout(() => {
+            showPage('home');
+        }, 5000); // 5000 milliseconds = 5 seconds
 
-    // --- Gallery animations on first view ---
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+        // --- Floating hearts ---
+        const heartContainer = document.getElementById('heart-container');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '&#10084;';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            heartContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
         }
-      });
-    }, { threshold: 0.3 });
+        setInterval(createHeart, 800);
 
-    document.querySelectorAll('.gallery-image-container img').forEach(img => observer.observe(img));
-  </script>
+        // --- Gallery animations on first view ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.gallery-image-container img').forEach(img => observer.observe(img));
+    </script>
 </body>
 </html>
+
